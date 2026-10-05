@@ -1,0 +1,83 @@
+@import "tailwindcss" source("../");
+
+@theme {
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --color-base: #0a0c10;
+  --color-surface: #11141b;
+  --color-raised: #171b24;
+  --color-line: #232836;
+  --color-line-strong: #2f3647;
+  --color-ink: #e9ecf2;
+  --color-muted: #9aa3b5;
+  --color-faint: #6b7385;
+  --color-ember: #ff6a3d;
+  --color-ember-soft: #ff8a63;
+  --color-signal: #5ee6c4;
+
+  --animate-rise: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+html {
+  color-scheme: dark;
+  background: var(--color-base);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-base);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-ember) 40%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Faint engineering grid used behind hero sections */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 75%);
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-raised) 0%,
+    var(--color-line) 50%,
+    var(--color-raised) 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
